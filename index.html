@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="lv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ŠOTIŅS — veselīgie šoti katrai dienai</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <h1 class="logo">ŠOTIŅS</h1>
+      <p class="tag">60 ml — tikai <strong>€0.99</strong></p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="intro">
+      <h2>ŠOTIŅŠ — veselīgie šoti katrai dienai</h2>
+      <p>Izvēlies garšu un daudzumu, pēc tam nospied <strong>„Pirkt tagad”</strong>.</p>
+    </section>
+
+    <section id="products" class="grid">
+      <!-- Produkti tiks ielādēti ar script.js -->
+    </section>
+  </main>
+
+  <footer class="wrap footer">
+    <p>© <span id="year"></span> ŠOTIŅS — visi produkti €0.99 / 60ml</p>
+  </footer>
+
+  <script>
+    // Public (publishable) Stripe key — safe to include client-side
+    const STRIPE_PUBLISHABLE_KEY = "pk_test_51S2YyNRa9CNQd184ZYm61EBf5G1ZdAOGxQiBC2S9HNfWb2hgAPPRyiTmWJjm5BlgWH2bJwwKri1IO8rkve3S5Yrt00BxhWF6Br";
+    // Server URL that will create Checkout sessions (must be HTTPS and public)
+    const SERVER_BASE = "https://www-sotins-eu-2.onrender.com";
+  </script>
+  <script src="script.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
