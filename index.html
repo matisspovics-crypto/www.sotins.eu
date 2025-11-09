@@ -3,36 +3,52 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ŠOTIŅS — veselīgie šoti katrai dienai</title>
+  <title>ŠOTIŅŠ — veselīgie šoti katrai dienai</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="wrap">
-      <h1 class="logo">ŠOTIŅS</h1>
-      <p class="tag">60 ml — tikai <strong>€0.99</strong></p>
+      <div class="brand">
+        <div class="logo">ŠOTIŅŠ.eu</div>
+        <div class="tag">Veselīgie šoti — 60 ml • €0.99</div>
+      </div>
+      <div class="controls-top">
+        <div class="lang-switch">
+          <button id="lang-lv" class="active">LV</button>
+          <button id="lang-en">EN</button>
+        </div>
+        <button id="view-cart" class="cart-btn">Groza saturs: <span id="cart-count">0</span></button>
+      </div>
     </div>
   </header>
 
   <main class="wrap">
-    <section class="intro">
-      <h2>ŠOTIŅŠ — veselīgie šoti katrai dienai</h2>
-      <p>Izvēlies garšu un daudzumu, pēc tam nospied <strong>„Pirkt tagad”</strong>.</p>
+    <section class="hero">
+      <h1 data-i18n="headline">ŠOTIŅŠ — veselīgie šoti katrai dienai</h1>
+      <p data-i18n="sub">Dabiski, augļaini un enerģijas pilni. Izvēlies garšas un daudzumu, pēc tam veic pasūtījumu.</p>
     </section>
 
-    <section id="products" class="grid">
-      <!-- Produkti tiks ielādēti ar script.js -->
+    <section id="products" class="grid" aria-live="polite">
+      <!-- products rendered by script.js -->
+    </section>
+
+    <section class="cart-panel" id="cart-panel" aria-hidden="true">
+      <h2 data-i18n="cart_title">Grozs</h2>
+      <div id="cart-items"></div>
+      <div class="cart-summary">
+        <div class="total"><span data-i18n="total">Kopā</span>: <strong id="cart-total">€0.00</strong></div>
+        <button id="checkout" class="buy-all">Pirkt tagad</button>
+      </div>
     </section>
   </main>
 
   <footer class="wrap footer">
-    <p>© <span id="year"></span> ŠOTIŅS — visi produkti €0.99 / 60ml</p>
+    <p>© <span id="year"></span> ŠOTIŅŠ.eu — visi produkti €0.99 / 60ml</p>
   </footer>
 
   <script>
-    // Public (publishable) Stripe key — safe to include client-side
     const STRIPE_PUBLISHABLE_KEY = "pk_test_51S2YyNRa9CNQd184ZYm61EBf5G1ZdAOGxQiBC2S9HNfWb2hgAPPRyiTmWJjm5BlgWH2bJwwKri1IO8rkve3S5Yrt00BxhWF6Br";
-    // Server URL that will create Checkout sessions (must be HTTPS and public)
     const SERVER_BASE = "https://www-sotins-eu-2.onrender.com";
   </script>
   <script src="script.js"></script>
