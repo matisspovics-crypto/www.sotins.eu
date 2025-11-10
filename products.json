@@ -1,0 +1,56 @@
+[
+  {
+    "nosaukums": "Ķirbis",
+    "apraksts": "Veselīgs šotiņš ar ķirbja garšu",
+    "bilde": "images/kirbis.png",
+    "cena": 0.99
+  },
+  {
+    "nosaukums": "Cidonija",
+    "apraksts": "Dabīgs šotiņš ar cidoniju",
+    "bilde": "images/cidonija.png",
+    "cena": 0.99
+  },
+  {
+    "nosaukums": "Laims",
+    "apraksts": "Atsvaidzinošs laima šotiņš",
+    "bilde": "images/laims.png",
+    "cena": 0.99
+  },
+  {
+    "nosaukums": "Apelsīns",
+    "apraksts": "Svaigs apelsīnu šotiņš",
+    "bilde": "images/apelsins.png",
+    "cena": 0.99
+  },
+  {
+    "nosaukums": "Egļu skujas",
+    "apraksts": "Dziedinošs skuju šotiņš",
+    "bilde": "images/skujas.png",
+    "cena": 0.99
+  },
+  {
+    "nosaukums": "Medus",
+    "apraksts": "Dabisks šotiņš ar medu",
+    "bilde": "images/medus.png",
+    "cena": 0.99
+  },
+  {
+    "nosaukums": "Kivi",
+    "apraksts": "Kivi garšas šotiņš",
+    "bilde": "images/kivi.png",
+    "cena": 0.99
+  },
+  {
+    "nosaukums": "Greipfrūts",
+    "apraksts": "Greipfrūtu garšas šotiņš",
+    "bilde": "images/greipfruts.png",
+    "cena": 0.99
+  },
+  {
+    "nosaukums": "Ābols",
+    "apraksts": "Ābolu garšas šotiņš",
+    "bilde": "images/abols.png",
+    "cena": 0.99
+  }
+]
