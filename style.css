@@ -1,55 +1,32 @@
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: url('images/fruit-bg.svg') center/cover no-repeat fixed;
-  color: #333;
-}
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.8);
-}
+:root{--accent1:#ff6b35;--accent2:#ff9aa2;--accent3:#ffd66b;--accent4:#7ce3b5;--text:#2b2b2b}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;background-image:url('images/fruit-hero.png');background-size:cover;background-position:center center;color:var(--text);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px;margin:0 auto;padding:20px;background:linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.6))}
+.site-header{padding:24px 0;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:36px;color:var(--accent1);margin:0;font-weight:900;letter-spacing:1px}
+.tag{margin:0;color:#555;font-weight:600}
 
-.logo {
-  color: #ff6600;
-  font-size: 1.8rem;
-}
+.hero{padding:20px;border-radius:10px;margin-bottom:10px}
+.hero h1{margin:0 0 6px 0;font-size:24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;margin-top:18px}
+.card{background:linear-gradient(180deg,rgba(255,255,255,0.95),#fff);border-radius:18px;padding:16px;text-align:center;box-shadow:0 12px 30px rgba(0,0,0,0.08);display:flex;flex-direction:column;align-items:center;position:relative;overflow:visible}
+.pill-img{width:140px;height:140px;border-radius:50%;overflow:hidden;border:6px solid #fff;margin-top:-70px;box-shadow:0 10px 30px rgba(0,0,0,0.12);display:flex;align-items:center;justify-content:center;background:linear-gradient(45deg,var(--accent4),var(--accent2))}
+.pill-img img{width:100%;height:100%;object-fit:cover}
+.card h3{margin:12px 0 6px 0;font-size:18px;color:var(--accent1);font-weight:700}
+.card p{margin:0 0 12px 0;color:#666;font-size:13px}
+.controls{display:flex;gap:8px;align-items:center;margin-top:auto}
+.qty{padding:8px;border-radius:8px;border:1px solid #eee;font-size:14px;background:#fff}
+.add-btn{background:linear-gradient(90deg,var(--accent1),#ff8a5b);color:#fff;padding:10px 14px;border-radius:999px;border:0;font-weight:800;cursor:pointer;box-shadow:0 12px 24px rgba(255,107,53,0.18)}
+.cart-btn{background:#fff;border:1px solid #eee;padding:8px 12px;border-radius:12px;cursor:pointer}
+.cart-panel{position:fixed;right:18px;bottom:18px;width:320px;background:#fff;padding:14px;border-radius:12px;box-shadow:0 18px 40px rgba(0,0,0,0.12);display:none}
+.cart-panel.visible{display:block}
+.cart-item{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed #eee}
+.cart-summary{margin-top:10px;display:flex;justify-content:space-between;align-items:center}
+.buy-all{background:linear-gradient(90deg,var(--accent1),#ff8a5b);border:0;padding:10px 16px;border-radius:999px;color:#fff;font-weight:800;cursor:pointer}
+.footer{margin-top:30px;text-align:center;color:#777;padding-bottom:30px}
 
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
-  padding: 2rem;
-}
-
-.product {
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 1rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  padding: 1rem;
-  text-align: center;
-}
-
-.product img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-}
-
-.checkout {
-  text-align: center;
-  margin: 2rem;
-}
-
-#checkoutBtn {
-  background-color: #ff6600;
-  color: white;
-  font-size: 1.2rem;
-  border: none;
-  padding: 0.8rem 2rem;
-  border-radius: 2rem;
-  cursor: pointer;
+@media (max-width:600px){
+  .wrap{padding:12px}
+  .pill-img{width:110px;height:110px;margin-top:-50px}
 }

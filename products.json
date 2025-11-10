@@ -1,56 +1,83 @@
 [
   {
-    "nosaukums": "Ķirbis",
-    "apraksts": "Veselīgs šotiņš ar ķirbja garšu",
-    "bilde": "images/kirbis.png",
-    "cena": 0.99
+    "id": "pumpkin",
+    "lv": "Ķirbis",
+    "en": "Pumpkin",
+    "desc_lv": "Sildošs un bagāts ar vitamīniem",
+    "desc_en": "Warming and vitamin-rich",
+    "image": "images/pumpkin.png",
+    "price_cents": 99
   },
   {
-    "nosaukums": "Cidonija",
-    "apraksts": "Dabīgs šotiņš ar cidoniju",
-    "bilde": "images/cidonija.png",
-    "cena": 0.99
+    "id": "quince",
+    "lv": "Cidonija",
+    "en": "Quince",
+    "desc_lv": "Īpaša, dziļa garša",
+    "desc_en": "Unique deep flavor",
+    "image": "images/quince.png",
+    "price_cents": 99
   },
   {
-    "nosaukums": "Laims",
-    "apraksts": "Atsvaidzinošs laima šotiņš",
-    "bilde": "images/laims.png",
-    "cena": 0.99
+    "id": "lime",
+    "lv": "Laims",
+    "en": "Lime",
+    "desc_lv": "Svaigs un atsvaidzinošs",
+    "desc_en": "Fresh and zesty",
+    "image": "images/lime.png",
+    "price_cents": 99
   },
   {
-    "nosaukums": "Apelsīns",
-    "apraksts": "Svaigs apelsīnu šotiņš",
-    "bilde": "images/apelsins.png",
-    "cena": 0.99
+    "id": "orange",
+    "lv": "Apelsīns",
+    "en": "Orange",
+    "desc_lv": "C vitamīna sprādziens",
+    "desc_en": "Vitamin C burst",
+    "image": "images/orange.png",
+    "price_cents": 99
   },
   {
-    "nosaukums": "Egļu skujas",
-    "apraksts": "Dziedinošs skuju šotiņš",
-    "bilde": "images/skujas.png",
-    "cena": 0.99
+    "id": "spruce",
+    "lv": "Eglu skujas",
+    "en": "Spruce tips",
+    "desc_lv": "Raksturīga un dabīga",
+    "desc_en": "Earthy and natural",
+    "image": "images/spruce.png",
+    "price_cents": 99
   },
   {
-    "nosaukums": "Medus",
-    "apraksts": "Dabisks šotiņš ar medu",
-    "bilde": "images/medus.png",
-    "cena": 0.99
+    "id": "honey",
+    "lv": "Medus",
+    "en": "Honey",
+    "desc_lv": "Maigs un salds",
+    "desc_en": "Soft and sweet",
+    "image": "images/honey.png",
+    "price_cents": 99
   },
   {
-    "nosaukums": "Kivi",
-    "apraksts": "Kivi garšas šotiņš",
-    "bilde": "images/kivi.png",
-    "cena": 0.99
+    "id": "kiwi",
+    "lv": "Kivi",
+    "en": "Kiwi",
+    "desc_lv": "Tropu un dzīvīgums",
+    "desc_en": "Tropical vibrance",
+    "image": "images/kiwi.png",
+    "price_cents": 99
   },
   {
-    "nosaukums": "Greipfrūts",
-    "apraksts": "Greipfrūtu garšas šotiņš",
-    "bilde": "images/greipfruts.png",
-    "cena": 0.99
+    "id": "grapefruit",
+    "lv": "Greipfrūts",
+    "en": "Grapefruit",
+    "desc_lv": "Sāļi-saldskābs",
+    "desc_en": "Tart and tangy",
+    "image": "images/grapefruit.png",
+    "price_cents": 99
   },
   {
-    "nosaukums": "Ābols",
-    "apraksts": "Ābolu garšas šotiņš",
-    "bilde": "images/abols.png",
-    "cena": 0.99
+    "id": "apple",
+    "lv": "Ābols",
+    "en": "Apple",
+    "desc_lv": "Klasika — veselīgi un garšīgi",
+    "desc_en": "Classic and healthy",
+    "image": "images/apple.png",
+    "price_cents": 99
   }
 ]

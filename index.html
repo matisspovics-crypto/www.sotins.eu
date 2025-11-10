@@ -1,24 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="lv">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ŠOTIŅŠ — veselīgie šoti katrai dienai</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1 class="logo">ŠOTIŅŠ.eu</h1>
-    <div class="lang-switch">
-      <button id="lvBtn">LV</button> | <button id="enBtn">EN</button>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo">ŠOTIŅŠ.eu</div>
+        <div class="tag">60 ml — tikai <strong>€0.99</strong></div>
+      </div>
+      <div class="controls-top">
+        <div class="lang-switch">
+          <button id="lang-lv" class="active">LV</button>
+          <button id="lang-en">EN</button>
+        </div>
+        <button id="view-cart" class="cart-btn">Groza saturs: <span id="cart-count">0</span></button>
+      </div>
     </div>
   </header>
-  <main>
-    <section id="products" class="product-grid"></section>
-    <div class="checkout">
-      <button id="checkoutBtn">Pirkt tagad</button>
-    </div>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1 data-i18n="headline">ŠOTIŅŠ — veselīgie šoti katrai dienai</h1>
+      <p data-i18n="sub">Dabiski, augļaini un enerģijas pilni. Izvēlies garšas un daudzumu, pēc tam veic pasūtījumu.</p>
+    </section>
+
+    <section id="products" class="grid" aria-live="polite">
+      <!-- products rendered by script.js -->
+    </section>
+
+    <section class="cart-panel" id="cart-panel" aria-hidden="true">
+      <h2 data-i18n="cart_title">Grozs</h2>
+      <div id="cart-items"></div>
+      <div class="cart-summary">
+        <div class="total"><span data-i18n="total">Kopā</span>: <strong id="cart-total">€0.00</strong></div>
+        <button id="checkout" class="buy-all">Pirkt tagad</button>
+      </div>
+    </section>
   </main>
+
+  <footer class="wrap footer">
+    <p>© <span id="year"></span> ŠOTIŅŠ.eu — visi produkti €0.99 / 60ml</p>
+  </footer>
+
+  <script>
+    const STRIPE_PUBLISHABLE_KEY = "PUBLISHABLE_KEY_REPLACE";
+    const SERVER_BASE = "SERVER_BASE_REPLACE";
+  </script>
   <script src="script.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
