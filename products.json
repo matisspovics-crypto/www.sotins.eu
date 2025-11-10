@@ -5,12 +5,11 @@
     "bilde": "images/kirbis.png",
     "cena": 0.99
   },
-  {
-    "nosaukums": "Cidonija",
-    "apraksts": "Dabīgs šotiņš ar cidoniju",
-    "bilde": "images/cidonija.png",
-    "cena": 0.99
-  },
+ {
+  "name": "Kivi šotiņš",
+  "price": 0.99,
+  "image": "images/kivi.png"
+}
   {
     "nosaukums": "Laims",
     "apraksts": "Atsvaidzinošs laima šotiņš",
