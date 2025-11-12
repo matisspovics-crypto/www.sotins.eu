@@ -10,7 +10,11 @@ body{
   margin:0;
   color:var(--text);
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background-image:url('background_desktop.png');
+ /* Tikai Produktu lapai */
+body.produkti-page {
+  background-image: url('background_products.png');
+}
+
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
