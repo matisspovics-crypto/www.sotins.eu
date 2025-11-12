@@ -24,7 +24,21 @@ body.produkti-page{
   background:transparent;
 }
 .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
-.brand{font-weight:800;text-decoration:none;color:#000;font-size:22px}
+.brand.brand {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:800;
+  text-decoration:none;
+  color:#000;
+  font-size:22px;
+}
+
+.brand img {
+  height:40px;  /* LOGO izmērs augšā */
+  width:auto;
+}
+
 .links a{margin:0 10px;color:#000;text-decoration:none;font-weight:600}
 .cart-btn{
   border:0;background:var(--brand);padding:8px 14px;border-radius:999px;
