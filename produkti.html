@@ -1,42 +1,47 @@
 <!DOCTYPE html>
 <html lang="lv">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Produkti — Sotins.eu</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Produkti — Sotins.eu</title>
+<style>
+  body {
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#fafafa;
+  }
+  .grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px,1fr));
+    gap:20px;
+    padding:20px;
+    max-width:1200px;
+    margin:auto;
+  }
+  .card {
+    text-align:center;
+    padding:10px;
+    background:white;
+    border-radius:12px;
+  }
+  .card img {
+    width:100%;
+    height:auto;
+  }
+</style>
 </head>
-<body class="produkti-page">
-  <header class="nav"><div class="container nav-inner">
-    <a class="brand" href="index.html">Sotins.eu</a>
-    <nav class='links'><a href='index.html'>Uz Galveno</a><a href='produkti.html' aria-current='page'>Produkti</a><a href='par-mums.html'>Par Mums</a><a href='kontakti.html'>Kontakti</a></nav>
-    <button class="cart-btn" id="openCart" aria-label="Atvērt grozu">🛒 <span id="cartCount">0</span></button>
-  </div></header>
-  <main class="container">
-    <h1>Visi produkti</h1>
-    <section class="grid" id="products"></section>
-  </main>
-  <footer class="footer"><div class="container footer-inner">
-    <div>© <span id="year"></span> Sotins.eu</div>
-    <div class="socials"><a href="#">Instagram</a><a href="#">Facebook</a><a href="#">TikTok</a></div>
-  </div></footer>
-  <div class='overlay' id='overlay' hidden></div>
-  <div class='modal' id='cartModal' role='dialog' aria-modal='true' hidden>
-    <header class='modal-header'><h2>Grozs</h2><button class='close' id='closeCart'>✕</button></header>
-    <div class='modal-body'><ul id='cartList' class='cart-list'></ul>
-    <div class='cart-total'><span>Kopā:</span><strong id='cartTotal'>€0.00</strong></div>
-    <button id='checkoutBtn' class='primary'>Pasūtīt</button></div>
-  </div>
-  <div class='modal' id='checkoutModal' role='dialog' aria-modal='true' hidden>
-    <header class='modal-header'><h2>Pasūtījuma dati</h2><button class='close' id='closeCheckout'>✕</button></header>
-    <form id='orderForm' class='form'>
-      <label>Vārds, Uzvārds<input name='name' required></label>
-      <label>Telefons<input name='phone' required></label>
-      <label>E-pasts<input name='email' type='email' required></label>
-      <label>Piegāde / komentāri<textarea name='notes' rows='3'></textarea></label>
-      <button type='submit' class='primary'>Nosūtīt pasūtījumu</button>
-    </form>
-  </div>
-  <div class='toast' id='toast' hidden></div>
-  <script>window.STORE_CONFIG={EMAIL:"orders@sotins.eu",PRICE:0.99,PRODUCTS:['Ķirbīgā Cidonija', 'Laimīgais Skujiņš', 'Vitamīnu Bumba', 'Tropiskais lietus', 'Ziemassvētku šots', 'Šotiņš Tradicionālais', 'Sporta Miķelis', 'Vairāk Saules', 'Gurķīgais Spēks']};</script>
-  <script src="app.js"></script>
-</body></html>
+<body>
+<h1 style="text-align:center;">Visi produkti</h1>
+<div class="grid">
+  <div class="card"><img src="images/product_1.png"><h3>Produkts 1</h3></div>
+  <div class="card"><img src="images/product_2.png"><h3>Produkts 2</h3></div>
+  <div class="card"><img src="images/product_3.png"><h3>Produkts 3</h3></div>
+  <div class="card"><img src="images/product_4.png"><h3>Produkts 4</h3></div>
+  <div class="card"><img src="images/product_5.png"><h3>Produkts 5</h3></div>
+  <div class="card"><img src="images/product_6.png"><h3>Produkts 6</h3></div>
+  <div class="card"><img src="images/product_7.png"><h3>Produkts 7</h3></div>
+  <div class="card"><img src="images/product_8.png"><h3>Produkts 8</h3></div>
+  <div class="card"><img src="images/product_9.png"><h3>Produkts 9</h3></div>
+</div>
+</body>
+</html>
