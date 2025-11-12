@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sotins.eu — Galvenā</title>
+  <title>Produkti — Sotins.eu</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,8 +12,8 @@
       <a class="brand" href="index.html">Sotins.eu</a>
       
       <nav class="links">
-        <a href="index.html" aria-current='page'>Uz Galveno</a>
-        <a href="produkti.html" >Produkti</a>
+        <a href="index.html" >Uz Galveno</a>
+        <a href="produkti.html" aria-current='page'>Produkti</a>
         <a href="par-mums.html" >Par Mums</a>
         <a href="kontakti.html" >Kontakti</a>
       </nav>
@@ -22,10 +22,9 @@
     </div>
   </header>
 
-  <main class="container hero">
-    <h1>Šotiņš — DUBULTĀ VAI NEKO</h1>
-    <p>Veselīgi šotiņi no dabīgām sastāvdaļām. Apskati visus produktus!</p>
-    <p><a class="primary big" href="produkti.html">Skatīt produktus</a></p>
+  <main class="container">
+    <h1>Visi produkti</h1>
+    <section class="grid" id="products"></section>
   </main>
 
   <footer class="footer">
@@ -39,7 +38,6 @@
     </div>
   </footer>
 
-  <!-- Shared modals (cart + checkout) so grozs strādā arī te -->
   <div class="overlay" id="overlay" hidden></div>
   <div class="modal" id="cartModal" role="dialog" aria-modal="true" hidden>
     <header class="modal-header">
@@ -55,6 +53,7 @@
       <button id="checkoutBtn" class="primary">Pasūtīt</button>
     </div>
   </div>
+
   <div class="modal" id="checkoutModal" role="dialog" aria-modal="true" hidden>
     <header class="modal-header">
       <h2>Pasūtījuma dati</h2>
