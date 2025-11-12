@@ -17,6 +17,7 @@ body{
 /* Produktu lapai savs fons */
 body.produkti-page{
   background-image:url('background_products.jpg');
+   color: #ffffff;
 }
 .container{width:min(1200px,94%);margin:0 auto}
 .nav{
