@@ -38,7 +38,7 @@ body{
   width:100%;
   height:auto;
 }
-.card h3{margin:10px 0 8px;font-size:18px;font-weight:700;line-height:1.2}
+.card h3{margin:10px 0 8px;font-size:24px;;font-weight:700;line-height:1.2}
 .meta{display:flex;justify-content:center;align-items:center;gap:12px}
 .price{font-weight:700}
 .buy{
