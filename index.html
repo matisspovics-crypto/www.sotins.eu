@@ -1,24 +1,58 @@
 <!DOCTYPE html>
 <html lang="lv">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ŠOTIŅŠ — veselīgie šoti katrai dienai</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sotins.eu</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('background_desktop.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      font-family: Arial, sans-serif;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        background-image: url('background_mobile.png');
+      }
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .product {
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1 class="logo">šotiņš.eu</h1>
-    <div class="lang-switch">
-      <button id="lvBtn">LV</button> | <button id="enBtn">EN</button>
-    </div>
-  </header>
-  <main>
-    <section id="products" class="product-grid"></section>
-    <div class="checkout">
-      <button id="checkoutBtn">Pirkt tagad</button>
-    </div>
-  </main>
-  <script src="script.js"></script>
+
+  <h1 style="text-align:center; color:white; margin-top:30px;">Sotins.eu</h1>
+
+  <div class="product-grid">
+    <div class="product">Produkts 1</div>
+    <div class="product">Produkts 2</div>
+    <div class="product">Produkts 3</div>
+    <div class="product">Produkts 4</div>
+    <div class="product">Produkts 5</div>
+    <div class="product">Produkts 6</div>
+    <div class="product">Produkts 7</div>
+    <div class="product">Produkts 8</div>
+    <div class="product">Produkts 9</div>
+  </div>
+
 </body>
 </html>
