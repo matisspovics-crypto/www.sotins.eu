@@ -1,47 +1,139 @@
 <!DOCTYPE html>
 <html lang="lv">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Produkti — Sotins.eu</title>
-<style>
-  body {
-    margin:0;
-    font-family: Arial, sans-serif;
-    background:#fafafa;
-  }
-  .grid {
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(200px,1fr));
-    gap:20px;
-    padding:20px;
-    max-width:1200px;
-    margin:auto;
-  }
-  .card {
-    text-align:center;
-    padding:10px;
-    background:white;
-    border-radius:12px;
-  }
-  .card img {
-    width:100%;
-    height:auto;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produkti — Sotins.eu</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: #000;
+      background-image: url('background_products.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      text-shadow: 0 2px 4px rgba(0,0,0,.4);
+      color: #fff;
+    }
+    .grid {
+      width: min(1200px, 96%);
+      margin: 0 auto 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: rgba(255,255,255,0.9);
+      border-radius: 18px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0,0,0,.22);
+    }
+    .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .card h3 {
+      margin: 10px 0 6px;
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .meta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+    }
+    .price {
+      font-weight: 800;
+    }
+  </style>
 </head>
 <body>
-<h1 style="text-align:center;">Visi produkti</h1>
-<div class="grid">
-  <div class="card"><img src="images/product_1.png"><h3>Produkts 1</h3></div>
-  <div class="card"><img src="images/product_2.png"><h3>Produkts 2</h3></div>
-  <div class="card"><img src="images/product_3.png"><h3>Produkts 3</h3></div>
-  <div class="card"><img src="images/product_4.png"><h3>Produkts 4</h3></div>
-  <div class="card"><img src="images/product_5.png"><h3>Produkts 5</h3></div>
-  <div class="card"><img src="images/product_6.png"><h3>Produkts 6</h3></div>
-  <div class="card"><img src="images/product_7.png"><h3>Produkts 7</h3></div>
-  <div class="card"><img src="images/product_8.png"><h3>Produkts 8</h3></div>
-  <div class="card"><img src="images/product_9.png"><h3>Produkts 9</h3></div>
-</div>
+  <h1>Visi produkti</h1>
+  <section class="grid">
+    
+      <article class="card">
+        <img src="images/product_1.png" alt="Ķirbīgā Cidonija">
+        <h3>Ķirbīgā Cidonija</h3>
+        <div class="meta">
+          <span class="price">€0.99</span>
+        </div>
+      </article>
+    
+      <article class="card">
+        <img src="images/product_2.png" alt="Laimīgais Skujiņš">
+        <h3>Laimīgais Skujiņš</h3>
+        <div class="meta">
+          <span class="price">€0.99</span>
+        </div>
+      </article>
+    
+      <article class="card">
+        <img src="images/product_3.png" alt="Vitamīnu Bumba">
+        <h3>Vitamīnu Bumba</h3>
+        <div class="meta">
+          <span class="price">€0.99</span>
+        </div>
+      </article>
+    
+      <article class="card">
+        <img src="images/product_4.png" alt="Tropiskais lietus">
+        <h3>Tropiskais lietus</h3>
+        <div class="meta">
+          <span class="price">€0.99</span>
+        </div>
+      </article>
+    
+      <article class="card">
+        <img src="images/product_5.png" alt="Ziemassvētku šots">
+        <h3>Ziemassvētku šots</h3>
+        <div class="meta">
+          <span class="price">€0.99</span>
+        </div>
+      </article>
+    
+      <article class="card">
+        <img src="images/product_6.png" alt="Šotiņš Tradicionālais">
+        <h3>Šotiņš Tradicionālais</h3>
+        <div class="meta">
+          <span class="price">€0.99</span>
+        </div>
+      </article>
+    
+      <article class="card">
+        <img src="images/product_7.png" alt="Sporta Miķelis">
+        <h3>Sporta Miķelis</h3>
+        <div class="meta">
+          <span class="price">€0.99</span>
+        </div>
+      </article>
+    
+      <article class="card">
+        <img src="images/product_8.png" alt="Vairāk Saules">
+        <h3>Vairāk Saules</h3>
+        <div class="meta">
+          <span class="price">€0.99</span>
+        </div>
+      </article>
+    
+      <article class="card">
+        <img src="images/product_9.png" alt="Gurķīgais Spēks">
+        <h3>Gurķīgais Spēks</h3>
+        <div class="meta">
+          <span class="price">€0.99</span>
+        </div>
+      </article>
+    
+  </section>
 </body>
 </html>
