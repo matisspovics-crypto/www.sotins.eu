@@ -1,9 +1,16 @@
 body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background-image: url("/images/fruit-hero.png");
-  color: #333;
+  background-image: url('background_desktop.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+
+@media (max-width: 768px) {
+  body {
+    background-image: url('background_mobile.png');
+  }
+}
+
 
 header {
   display: flex;
