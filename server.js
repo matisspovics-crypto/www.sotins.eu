@@ -16,15 +16,15 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // simple product catalog mapping (id -> name, price_cents)
 const PRODUCTS = {
-  pumpkin: { name: "Ķirbis", price_cents: 99 },
-  quince: { name: "Cidonija", price_cents: 99 },
-  lime: { name: "Laims", price_cents: 99 },
-  orange: { name: "Apelsīns", price_cents: 99 },
-  spruce: { name: "Eglu skujas", price_cents: 99 },
-  honey: { name: "Medus", price_cents: 99 },
-  kiwi: { name: "Kivi", price_cents: 99 },
-  grapefruit: { name: "Greipfrūts", price_cents: 99 },
-  apple: { name: "Ābols", price_cents: 99 }
+  pumpkin: { name: "Ķirbīgā Cidonija", price_cents: 99 },
+  quince: { name: "Laimīgais Skujiņš", price_cents: 99 },
+  lime: { name: "Vitamīnu Bumba", price_cents: 99 },
+  orange: { name: "Tropiskais lietus", price_cents: 99 },
+  spruce: { name: "Ziemassvētku šots", price_cents: 99 },
+  honey: { name: "Šotiņš Tradicionālais", price_cents: 99 },
+  kiwi: { name: " Sporta Miķelis", price_cents: 99 },
+  grapefruit: { name: "Vairāk Saules", price_cents: 99 },
+  apple: { name: "Gurķīgais Spēks", price_cents: 99 }
 };
 
 app.post("/create-checkout-session", async (req, res) => {
