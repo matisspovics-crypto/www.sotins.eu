@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: url('images/fruit-bg.svg') center/cover no-repeat fixed;
+  background-image: url("/images/fruit-hero.png");
   color: #333;
 }
 
