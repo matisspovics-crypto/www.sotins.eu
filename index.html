@@ -3,106 +3,86 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sotins.eu</title>
+  <title>Sotins.eu — Veikals</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="topbar">
-    <h1>Sotins.eu</h1>
-    <div class="cart">🛒 <span id="cartCount">0</span></div>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">Sotins.eu</a>
+      <nav class="links">
+        <a href="par-mums.html">Par Mums</a>
+        <a href="kontakti.html">Kontakti</a>
+      </nav>
+      <button class="cart-btn" id="openCart" aria-label="Atvērt grozu">🛒 <span id="cartCount">0</span></button>
+    </div>
   </header>
 
-  <main>
-    <section class="grid" id="products">
-
-      <article class="card">
-        <img src="images/product_1.png" alt="Ķirbīgā Cidonija" loading="lazy">
-        <h3>Ķirbīgā Cidonija</h3>
-        <div class="meta">
-          <span class="price">€0.99</span>
-          <button class="buy" data-name="Ķirbīgā Cidonija" data-price="0.99">Pirkt</button>
-        </div>
-      </article>
-    
-      <article class="card">
-        <img src="images/product_2.png" alt="Laimīgais Skujiņš" loading="lazy">
-        <h3>Laimīgais Skujiņš</h3>
-        <div class="meta">
-          <span class="price">€0.99</span>
-          <button class="buy" data-name="Laimīgais Skujiņš" data-price="0.99">Pirkt</button>
-        </div>
-      </article>
-    
-      <article class="card">
-        <img src="images/product_3.png" alt="Vitamīnu Bumba" loading="lazy">
-        <h3>Vitamīnu Bumba</h3>
-        <div class="meta">
-          <span class="price">€0.99</span>
-          <button class="buy" data-name="Vitamīnu Bumba" data-price="0.99">Pirkt</button>
-        </div>
-      </article>
-    
-      <article class="card">
-        <img src="images/product_4.png" alt="Tropiskais lietus" loading="lazy">
-        <h3>Tropiskais lietus</h3>
-        <div class="meta">
-          <span class="price">€0.99</span>
-          <button class="buy" data-name="Tropiskais lietus" data-price="0.99">Pirkt</button>
-        </div>
-      </article>
-    
-      <article class="card">
-        <img src="images/product_5.png" alt="Ziemassvētku šots" loading="lazy">
-        <h3>Ziemassvētku šots</h3>
-        <div class="meta">
-          <span class="price">€0.99</span>
-          <button class="buy" data-name="Ziemassvētku šots" data-price="0.99">Pirkt</button>
-        </div>
-      </article>
-    
-      <article class="card">
-        <img src="images/product_6.png" alt="Šotiņš Tradicionālais" loading="lazy">
-        <h3>Šotiņš Tradicionālais</h3>
-        <div class="meta">
-          <span class="price">€0.99</span>
-          <button class="buy" data-name="Šotiņš Tradicionālais" data-price="0.99">Pirkt</button>
-        </div>
-      </article>
-    
-      <article class="card">
-        <img src="images/product_7.png" alt="Sporta Miķelis" loading="lazy">
-        <h3>Sporta Miķelis</h3>
-        <div class="meta">
-          <span class="price">€0.99</span>
-          <button class="buy" data-name="Sporta Miķelis" data-price="0.99">Pirkt</button>
-        </div>
-      </article>
-    
-      <article class="card">
-        <img src="images/product_8.png" alt="Vairāk Saules" loading="lazy">
-        <h3>Vairāk Saules</h3>
-        <div class="meta">
-          <span class="price">€0.99</span>
-          <button class="buy" data-name="Vairāk Saules" data-price="0.99">Pirkt</button>
-        </div>
-      </article>
-    
-      <article class="card">
-        <img src="images/product_9.png" alt="Gurķīgais Spēks" loading="lazy">
-        <h3>Gurķīgais Spēks</h3>
-        <div class="meta">
-          <span class="price">€0.99</span>
-          <button class="buy" data-name="Gurķīgais Spēks" data-price="0.99">Pirkt</button>
-        </div>
-      </article>
-    
-    </section>
+  <main class="container">
+    <h1 class="sr-only">Produkti</h1>
+    <section class="grid" id="products"></section>
   </main>
 
   <footer class="footer">
-    <p>© Sotins.eu</p>
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> Sotins.eu</div>
+      <div class="socials">
+        <a href="#" aria-label="Instagram">Instagram</a>
+        <a href="#" aria-label="Facebook">Facebook</a>
+        <a href="#" aria-label="TikTok">TikTok</a>
+      </div>
+    </div>
   </footer>
 
+  <!-- Cart modal -->
+  <div class="overlay" id="overlay" hidden></div>
+  <div class="modal" id="cartModal" role="dialog" aria-modal="true" hidden>
+    <header class="modal-header">
+      <h2>Grozs</h2>
+      <button class="close" id="closeCart" aria-label="Aizvērt">✕</button>
+    </header>
+    <div class="modal-body">
+      <ul id="cartList" class="cart-list"></ul>
+      <div class="cart-total">
+        <span>Kopā:</span>
+        <strong id="cartTotal">€0.00</strong>
+      </div>
+      <button id="checkoutBtn" class="primary">Pasūtīt</button>
+    </div>
+  </div>
+
+  <!-- Checkout modal -->
+  <div class="modal" id="checkoutModal" role="dialog" aria-modal="true" hidden>
+    <header class="modal-header">
+      <h2>Pasūtījuma dati</h2>
+      <button class="close" id="closeCheckout" aria-label="Aizvērt">✕</button>
+    </header>
+    <form id="orderForm" class="form">
+      <label>Vārds, Uzvārds
+        <input name="name" required>
+      </label>
+      <label>Telefons
+        <input name="phone" required>
+      </label>
+      <label>E-pasts
+        <input name="email" type="email" required>
+      </label>
+      <label>Piegādes adrese / komentāri
+        <textarea name="notes" rows="3"></textarea>
+      </label>
+      <button type="submit" class="primary">Nosūtīt pasūtījumu</button>
+    </form>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script>
+    window.STORE_CONFIG = {
+      EMAIL: "orders@sotins.eu",
+      PRICE: 0.99,
+      PRODUCTS: ['Ķirbīgā Cidonija', 'Laimīgais Skujiņš', 'Vitamīnu Bumba', 'Tropiskais lietus', 'Ziemassvētku šots', 'Šotiņš Tradicionālais', 'Sporta Miķelis', 'Vairāk Saules', 'Gurķīgais Spēks']
+    };
+  </script>
   <script src="app.js"></script>
 </body>
 </html>
