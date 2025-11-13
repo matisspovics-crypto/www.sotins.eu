@@ -21,6 +21,11 @@ if(grid){
 }
 
 let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+function clearCart(){
+  cart = [];
+  updateCartUI();
+  showToast("Grozs iztukšots");
+}
 const cartCount = document.getElementById('cartCount');
 const cartList = document.getElementById('cartList');
 const cartTotal = document.getElementById('cartTotal');
@@ -76,6 +81,10 @@ if(checkoutBtn) checkoutBtn.addEventListener('click', ()=>{
   openCheckoutModal();
 });
 if(closeCheckout) closeCheckout.addEventListener('click', closeCheckoutModal);
+const clearCartBtn = document.getElementById('clearCartBtn');
+if(clearCartBtn){
+  clearCartBtn.addEventListener('click', clearCart);
+}
 
 if(orderForm){
   orderForm.addEventListener('submit', e => {
