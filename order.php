@@ -1,6 +1,6 @@
 <?php
 // Kam sūtīt pasūtījumu
-$to = "orders@sotins.eu"; // <-- Ja vajag, nomainiet uz savu e-pastu, piem. yourname@gmail.com
+$to = "matiss.povics@gmail.com"; // <-- Ja vajag, nomainiet uz savu e-pastu, piem. yourname@gmail.com
 
 // Debug log faila ceļš (tajā pašā mapē)
 $logFile = __DIR__ . "/order_debug_log.txt";
