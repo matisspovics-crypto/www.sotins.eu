@@ -246,11 +246,45 @@ if(orderForm){
       total: total
     };
 
-    fetch("order.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    }).then(res => {
+   orderForm.addEventListener('submit', (e)=> {
+  e.preventDefault();
+
+  if(cart.length === 0){
+    alert("Grozs ir tukšs");
+    return;
+  }
+
+  const data = Object.fromEntries(new FormData(orderForm).entries());
+
+  const itemsText = cart.map(i =>
+    `${i.name} x ${i.qty} = €${(i.price * i.qty).toFixed(2)}`
+  ).join('\n');
+
+  const total = cart.reduce((a,i)=>a + i.price * i.qty, 0).toFixed(2);
+
+  const body =
+    `Preces:\n${itemsText}\n\n` +
+    `Kopā: €${total}\n\n` +
+    `Klienta dati:\n` +
+    `Vārds: ${data.name}\n` +
+    `Telefons: ${data.phone}\n` +
+    `E-pasts: ${data.email}\n` +
+    `Adrese/komentāri: ${data.notes || ''}\n`;
+
+  const subject = "Jauns pasūtījums no sotins.eu";
+
+  const mailto = `mailto:supersotins@gmail.com` +
+    `?subject=${encodeURIComponent(subject)}` +
+    `&body=${encodeURIComponent(body)}`;
+
+  window.location.href = mailto;   // atver e-pastu ar visu sagatavotu
+
+  alert("Pasūtījums sagatavots e-pastam – nospiediet 'Send' savā e-pastā.");
+  cart = [];
+  updateCartUI();
+  orderForm.reset();
+});
+.then(res => {
       if(res.ok){
         showToast("Pasūtījums nosūtīts!");
         cart = [];
