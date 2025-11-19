@@ -1,6 +1,6 @@
 <?php
 // Kam sūtīt pasūtījumu
-$to = "orders@sotins.eu"; // <-- NOMAINSIET ŠEIT UZ SAVU E-PASTU, JA VAJAG
+$to = "supersotins@gmail.com"; // <-- NOMAINSIET ŠEIT UZ SAVU E-PASTU, JA VAJAG
 
 // Nolasām JSON datus no fetch()
 $raw = file_get_contents("php://input");
