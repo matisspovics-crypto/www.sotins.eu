@@ -55,7 +55,7 @@ try {
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
     $mail->Username   = 'supersotins@gmail.com';        // JŪSU GMAIL
-    $mail->Password   = '“jbrj yeoa ifpt edvs';       // 16-zīmju Google App Password (NEVIS parasto paroli)
+    $mail->Password   = '“jbrjyeoaifptedvs';       // 16-zīmju Google App Password (NEVIS parasto paroli)
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
 
