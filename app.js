@@ -1,106 +1,222 @@
-// UPDATED APP.JS AFTER SWITCH TO MANUAL HTML PRODUCTS
+// Sotins.eu cart + checkout logic (JS-ģenerēti produkti, PHP e-pasta backend)
+
+// Konfigurācija
 const cfg = window.STORE_CONFIG || { PRICE: 0.99 };
 
-// Manual product list (used only for cart functionality)
+// Produktu saraksts
 const products = [
-  { id: 1, name: "Ķirbīgā Cidonija",      price: Number(cfg.PRICE) },
-  { id: 2, name: "Laimīgais Skujiņš",     price: Number(cfg.PRICE) },
-  { id: 3, name: "Vitamīnu Bumba",        price: Number(cfg.PRICE) },
-  { id: 4, name: "Tropiskais lietus",     price: Number(cfg.PRICE) },
-  { id: 5, name: "Ziemassvētku šots",     price: Number(cfg.PRICE) },
-  { id: 6, name: "Šotiņš Tradicionālais", price: Number(cfg.PRICE) },
-  { id: 7, name: "Sporta Miķelis",        price: Number(cfg.PRICE) },
-  { id: 8, name: "Vairāk Saules",         price: Number(cfg.PRICE) },
-  { id: 9, name: "Gurķīgais Spēks",       price: Number(cfg.PRICE) },
+  { id: 1, name: "Ķirbīgā Cidonija",      price: Number(cfg.PRICE), img: "images/product_1.png" },
+  { id: 2, name: "Laimīgais Skujiņš",     price: Number(cfg.PRICE), img: "images/product_2.png" },
+  { id: 3, name: "Vitamīnu Bumba",        price: Number(cfg.PRICE), img: "images/product_3.png" },
+  { id: 4, name: "Tropiskais lietus",     price: Number(cfg.PRICE), img: "images/product_4.png" },
+  { id: 5, name: "Ziemassvētku šots",     price: Number(cfg.PRICE), img: "images/product_5.png" },
+  { id: 6, name: "Šotiņš Tradicionālais", price: Number(cfg.PRICE), img: "images/product_6.png" },
+  { id: 7, name: "Sporta Miķelis",        price: Number(cfg.PRICE), img: "images/product_7.png" },
+  { id: 8, name: "Vairāk Saules",         price: Number(cfg.PRICE), img: "images/product_8.png" },
+  { id: 9, name: "Gurķīgais Spēks",       price: Number(cfg.PRICE), img: "images/product_9.png" },
 ];
 
-const grid = document.getElementById('products');
+// ELEMENTI
+const grid             = document.getElementById("products");
+const cartBtn          = document.getElementById("cartBtn");
+const overlay          = document.getElementById("overlay");
+const cartModal        = document.getElementById("cartModal");
+const closeCartBtn     = document.getElementById("closeCart");
+const checkoutModal    = document.getElementById("checkoutModal");
+const closeCheckoutBtn = document.getElementById("closeCheckout");
+const checkoutBtn      = document.getElementById("checkoutBtn");
+const orderForm        = document.getElementById("orderForm");
+const toast            = document.getElementById("toast");
 
-// Load cart
-let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+// Vienkāršas show/hide funkcijas
+function show(el){
+  if(!el) return;
+  if(el.hasAttribute("hidden")) el.hidden = false;
+  else el.style.display = "block";
+}
+function hide(el){
+  if(!el) return;
+  if(el.hasAttribute("hidden")) el.hidden = true;
+  else el.style.display = "none";
+}
+
+// Paziņojums
+function showToast(msg){
+  if(!toast){ alert(msg); return; }
+  toast.textContent = msg;
+  show(toast);
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(()=> hide(toast), 1800);
+}
+
+// Ģenerējam produktus produktu lapā
+if(grid){
+  grid.innerHTML = products.map(p => `
+    <article class="card">
+      <img src="${p.img}" alt="${p.name}" loading="lazy">
+      <h3>${p.name}</h3>
+      <div class="meta">
+        <span class="price">€${p.price.toFixed(2)}</span>
+        <button class="buy" data-id="${p.id}">Pirkt</button>
+      </div>
+    </article>
+  `).join("");
+}
+
+// GROZS
+let cart = [];
+try{
+  cart = JSON.parse(localStorage.getItem("cart") || "[]");
+}catch(_){ cart = []; }
+
+function saveCart(){
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
 
 function updateCartUI(){
-  const cartCount = document.getElementById('cartCount');
-  const cartList  = document.getElementById('cartList');
-  const cartTotal = document.getElementById('cartTotal');
+  const cartCount = document.getElementById("cartCount");
+  const cartList  = document.getElementById("cartList");
+  const cartTotal = document.getElementById("cartTotal");
 
-  if(cartCount) cartCount.textContent = cart.reduce((a,i)=>a+i.qty,0);
+  if(cartCount){
+    cartCount.textContent = cart.reduce((sum, i)=>sum + i.qty, 0);
+  }
 
   if(cartList){
-    cartList.innerHTML = cart.map(item => `
-      <li class="cart-item">
-        <span>${item.name} × ${item.qty}</span>
-        <span>€${(item.price*i.qty).toFixed(2)}</span>
-      </li>
-    `).join('') || '<li class="cart-item"><em>Grozs ir tukšs</em></li>';
+    if(cart.length === 0){
+      cartList.innerHTML = '<li class="cart-item"><em>Grozs ir tukšs</em></li>';
+    }else{
+      cartList.innerHTML = cart.map(i => `
+        <li class="cart-item">
+          <span>${i.name} × ${i.qty}</span>
+          <span>€${(i.price * i.qty).toFixed(2)}</span>
+        </li>
+      `).join("");
+    }
   }
 
   if(cartTotal){
-    const total = cart.reduce((a,i)=>a+i.price*i.qty,0);
+    const total = cart.reduce((s,i)=>s + i.price * i.qty, 0);
     cartTotal.textContent = "€" + total.toFixed(2);
   }
 
-  localStorage.setItem('cart', JSON.stringify(cart));
+  saveCart();
 }
 updateCartUI();
 
-// Add to cart
+// Pievienot grozam
 if(grid){
-  grid.addEventListener('click', e => {
-    if(e.target.classList.contains('buy')){
-      const id = Number(e.target.dataset.id);
-      const product = products.find(x => x.id === id);
-      if(product){
-        const existing = cart.find(x => x.id === id);
-        if(existing) existing.qty++;
-        else cart.push({ ...product, qty: 1 });
-        updateCartUI();
-        alert("Pievienots grozam!");
-      }
-    }
+  grid.addEventListener("click", e => {
+    const btn = e.target.closest(".buy");
+    if(!btn) return;
+    const id = Number(btn.dataset.id);
+    const product = products.find(p => p.id === id);
+    if(!product) return;
+    const existing = cart.find(i => i.id === id);
+    if(existing) existing.qty += 1;
+    else cart.push({ ...product, qty: 1 });
+    updateCartUI();
+    showToast(product.name + " pievienots grozam");
   });
 }
 
-// Checkout form handling remains unchanged
-document.addEventListener("DOMContentLoaded", () => {
-  const orderForm = document.getElementById('orderForm');
-  if(!orderForm) return;
+// Atvērt / aizvērt grozu
+if(cartBtn){
+  cartBtn.addEventListener("click", () => {
+    show(overlay);
+    show(cartModal);
+  });
+}
+if(closeCartBtn){
+  closeCartBtn.addEventListener("click", () => {
+    hide(cartModal);
+    hide(overlay);
+  });
+}
 
-  orderForm.addEventListener('submit', (e)=> {
+// Klikšķis uz overlay aizver
+if(overlay){
+  overlay.addEventListener("click", () => {
+    hide(cartModal);
+    hide(checkoutModal);
+    hide(overlay);
+  });
+}
+
+// Checkout atvēršana
+if(checkoutBtn){
+  checkoutBtn.addEventListener("click", () => {
+    if(cart.length === 0){
+      showToast("Grozs ir tukšs");
+      return;
+    }
+    hide(cartModal);
+    show(checkoutModal);
+    show(overlay);
+  });
+}
+if(closeCheckoutBtn){
+  closeCheckoutBtn.addEventListener("click", () => {
+    hide(checkoutModal);
+    hide(overlay);
+  });
+}
+
+// Iztukšot grozu (ja HTML būs poga ar id="clearCartBtn")
+const clearCartBtn = document.getElementById("clearCartBtn");
+function clearCart(){
+  cart = [];
+  updateCartUI();
+  showToast("Grozs iztukšots");
+}
+if(clearCartBtn){
+  clearCartBtn.addEventListener("click", clearCart);
+}
+
+// Pasūtījuma nosūtīšana uz order.php
+if(orderForm){
+  orderForm.addEventListener("submit", e => {
     e.preventDefault();
+    if(cart.length === 0){
+      showToast("Grozs ir tukšs");
+      return;
+    }
 
-    const data = Object.fromEntries(new FormData(orderForm).entries());
+    const formData = new FormData(orderForm);
+    const data = Object.fromEntries(formData.entries());
 
     const itemsText = cart.map(i =>
-      `${i.name} x ${i.qty} = €${(i.price*i.qty).toFixed(2)}`
-    ).join('\n');
+      `${i.name} x ${i.qty} = €${(i.price * i.qty).toFixed(2)}`
+    ).join("\\n");
 
-    const total = cart.reduce((a,i)=>a+i.price*i.qty, 0).toFixed(2);
+    const total = cart.reduce((s,i)=>s + i.price * i.qty, 0).toFixed(2);
 
     const payload = {
-      name:  data.name,
-      phone: data.phone,
-      email: data.email,
+      name:  data.name  || "",
+      phone: data.phone || "",
+      email: data.email || "",
       notes: data.notes || "",
       items: itemsText,
       total: total
     };
 
-    fetch('order.php', {
-      method: 'POST',
-      headers: { 'Content-Type':'application/json' },
+    fetch("order.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     }).then(res => {
       if(res.ok){
-        alert("Pasūtījums nosūtīts!");
+        showToast("Pasūtījums nosūtīts!");
         cart = [];
         updateCartUI();
         orderForm.reset();
+        hide(checkoutModal);
+        hide(overlay);
       } else {
-        alert("KĻŪDA! Pasūtījumu nevar nosūtīt.");
+        showToast("Kļūda, pasūtījumu nevar nosūtīt.");
       }
-    }).catch(()=>{
-      alert("Savienojuma kļūda!");
+    }).catch(() => {
+      showToast("Savienojuma kļūda.");
     });
   });
-});
+}

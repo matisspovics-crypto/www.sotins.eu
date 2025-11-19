@@ -9,13 +9,14 @@
 <body>
   <header class="nav">
     <div class="container nav-inner">
-     <a class="brand" href="index.html">
-    <img src="logo.png" alt="Sotins.eu">
-    Sotins.eu
-</a>
-
-      <nav class='links'><a href='index.html' aria-current='page'>Uz Galveno</a><a href='produkti.html'>Produkti</a><a href='par-mums.html'>Par Mums</a><a href='kontakti.html'>Kontakti</a></nav>
-      <button class="cart-btn" id="openCart" aria-label="Atvērt grozu">🛒 <span id="cartCount">0</span></button>
+      <a class="brand" href="index.html">Sotins.eu</a>
+      <nav class="links">
+        <a href="index.html" aria-current="page">Uz Galveno</a>
+        <a href="produkti.html">Produkti</a>
+        <a href="par-mums.html">Par Mums</a>
+        <a href="kontakti.html">Kontakti</a>
+      </nav>
+      <button class="cart-btn" id="cartBtn" aria-label="Atvērt grozu">🛒 <span id="cartCount">0</span></button>
     </div>
   </header>
 
@@ -35,52 +36,60 @@
       </div>
     </div>
   </footer>
-  
-  <div class='overlay' id='overlay' hidden></div>
-  <div class='modal' id='cartModal' role='dialog' aria-modal='true' hidden>
-    <header class='modal-header'>
+
+  <!-- Overlay + modāļi (grozs + pasūtījums) -->
+  <div class="overlay" id="overlay" hidden></div>
+
+  <div class="modal" id="cartModal" role="dialog" aria-modal="true" hidden>
+    <header class="modal-header">
       <h2>Grozs</h2>
-      <button class='close' id='closeCart' aria-label='Aizvērt'>✕</button>
+      <button class="close" id="closeCart" aria-label="Aizvērt">✕</button>
     </header>
-    <div class='modal-body'>
-      <ul id='cartList' class='cart-list'></ul>
-      <div class='cart-total'>
+    <div class="modal-body">
+      <ul id="cartList" class="cart-list"></ul>
+      <div class="cart-total">
         <span>Kopā:</span>
-        <strong id='cartTotal'>€0.00</strong>
+        <strong id="cartTotal">€0.00</strong>
       </div>
-      <button id='checkoutBtn' class='primary'>Pasūtīt</button>
-      <button id="clearCartBtn" class="primary" style="background:#ff4c4c;">Iztukšot grozu</button>
+      <button id="checkoutBtn" class="primary">Pasūtīt</button>
+      <!-- Neobligāta poga groza iztukšošanai
+      <button id="clearCartBtn" class="primary" style="margin-top:8px;background:#ff4c4c;color:#fff;">Iztukšot grozu</button>
+      -->
     </div>
   </div>
-  <div class='modal' id='checkoutModal' role='dialog' aria-modal='true' hidden>
-    <header class='modal-header'>
+
+  <div class="modal" id="checkoutModal" role="dialog" aria-modal="true" hidden>
+    <header class="modal-header">
       <h2>Pasūtījuma dati</h2>
-      <button class='close' id='closeCheckout' aria-label='Aizvērt'>✕</button>
+      <button class="close" id="closeCheckout" aria-label="Aizvērt">✕</button>
     </header>
-    <form id='orderForm' class='form'>
-      <label>Vārds, Uzvārds
-        <input name='name' required>
-      </label>
-      <label>Telefons
-        <input name='phone' required>
-      </label>
-      <label>E-pasts
-        <input name='email' type='email' required>
-      </label>
-      <label>Piegādes adrese / komentāri
-        <textarea name='notes' rows='3'></textarea>
-      </label>
-      <button type='submit' class='primary'>Nosūtīt pasūtījumu</button>
-    </form>
+    <div class="modal-body">
+      <form id="orderForm" class="form">
+        <label>Vārds, Uzvārds
+          <input name="name" required>
+        </label>
+        <label>Telefons
+          <input name="phone" required>
+        </label>
+        <label>E-pasts
+          <input name="email" type="email" required>
+        </label>
+        <label>Piegādes adrese / komentāri
+          <textarea name="notes" rows="3"></textarea>
+        </label>
+        <button type="submit" class="primary">Nosūtīt pasūtījumu</button>
+      </form>
+    </div>
   </div>
-  <div class='toast' id='toast' hidden></div>
+
+  <div class="toast" id="toast" hidden></div>
 
   <script>
     window.STORE_CONFIG = {
-      EMAIL: "info@struk-inovacijas.lv",
-      PRICE: 0.99,
-      PRODUCTS: ['Ķirbīgā Cidonija', 'Laimīgais Skujiņš', 'Vitamīnu Bumba', 'Tropiskais lietus', 'Ziemassvētku šots', 'Šotiņš Tradicionālais', 'Sporta Miķelis', 'Vairāk Saules', 'Gurķīgais Spēks']
+      EMAIL: "orders@sotins.eu",
+      PRICE: 0.99
     };
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
   <script src="app.js"></script>
 </body>

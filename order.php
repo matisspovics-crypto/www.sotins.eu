@@ -1,29 +1,56 @@
 <?php
-$to = "orders@sotins.eu";
-$data = json_decode(file_get_contents("php://input"), true);
+// Kam sūtīt pasūtījumu
+$to = "orders@sotins.eu"; // <-- NOMAINSIET ŠEIT UZ SAVU E-PASTU, JA VAJAG
 
-$name  = $data["name"]  ?? "";
-$phone = $data["phone"] ?? "";
-$email = $data["email"] ?? "";
-$notes = $data["notes"] ?? "";
-$items = $data["items"] ?? "";
-$total = $data["total"] ?? "";
+// Nolasām JSON datus no fetch()
+$raw = file_get_contents("php://input");
+$data = json_decode($raw, true);
 
-$subject = "Jauns pasūtījums – €" . $total;
+$name  = isset($data["name"])  ? trim($data["name"])  : "";
+$phone = isset($data["phone"]) ? trim($data["phone"]) : "";
+$email = isset($data["email"]) ? trim($data["email"]) : "";
+$notes = isset($data["notes"]) ? trim($data["notes"]) : "";
+$items = isset($data["items"]) ? trim($data["items"]) : "";
+$total = isset($data["total"]) ? trim($data["total"]) : "";
 
-$body = "Jauns pasūtījums:\n\n" .
-        $items . "\n\n" .
-        "Kopā: €" . $total . "\n\n" .
-        "Klienta dati:\n" .
-        "Vārds: $name\n" .
-        "Telefons: $phone\n" .
-        "E-pasts: $email\n" .
-        "Adrese/komentāri: $notes\n";
+// Vienkārša validācija
+if ($items === "" || $total === "" || $name === "" || $phone === "" || $email === "") {
+    http_response_code(400);
+    echo "Missing fields";
+    exit;
+}
 
-$headers = "From: noreply@sotins.eu\r\n" .
-           "Reply-To: $email\r\n";
+// Temats
+$subject = "Jauns pasūtījums — €" . $total;
 
-if (mail($to, $subject, $body, $headers)) {
+// Ziņas saturs
+$bodyLines = [
+    "Jauns pasūtījums:",
+    "",
+    $items,
+    "",
+    "Kopā: €" . $total,
+    "",
+    "Klienta dati:",
+    "Vārds: " . $name,
+    "Telefons: " . $phone,
+    "E-pasts: " . $email,
+    "Adrese/komentāri: " . $notes,
+];
+
+$body = implode("\n", $bodyLines);
+
+// Headeri (no noreply@ jūsu domēna)
+$headers   = [];
+$headers[] = "From: Sotins.eu <noreply@sotins.eu>";
+$headers[] = "Reply-To: " . $email;
+$headers[] = "Content-Type: text/plain; charset=UTF-8";
+$headersStr = implode("\r\n", $headers);
+
+// Sūtam e-pastu
+$ok = mail($to, $subject, $body, $headersStr);
+
+if ($ok) {
     http_response_code(200);
     echo "OK";
 } else {
@@ -31,3 +58,4 @@ if (mail($to, $subject, $body, $headers)) {
     echo "ERROR";
 }
 ?>
+
