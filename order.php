@@ -1,12 +1,18 @@
 <?php
-// Kam tiks nosūtīti VISI pasūtījumi
-$to = "supersotins@gmail.com"; // <- ŠEIT IR JŪSU E-PASTS
+// ====== GMAIL SMTP PASŪTĪJUMI UZ supersotins@gmail.com ======
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+// PHPMailer klases (tām jābūt mapē phpmailer/ blakus order.php)
+require __DIR__ . '/phpmailer/Exception.php';
+require __DIR__ . '/phpmailer/PHPMailer.php';
+require __DIR__ . '/phpmailer/SMTP.php';
 
 // Nolasām JSON datus no fetch('order.php', ...)
-$raw = file_get_contents("php://input");
+$raw  = file_get_contents("php://input");
 $data = json_decode($raw, true);
 
-// Izvelkam laukus ar drošu noklusējumu
 $name  = isset($data["name"])  ? trim($data["name"])  : "";
 $phone = isset($data["phone"]) ? trim($data["phone"]) : "";
 $email = isset($data["email"]) ? trim($data["email"]) : "";
@@ -14,17 +20,16 @@ $notes = isset($data["notes"]) ? trim($data["notes"]) : "";
 $items = isset($data["items"]) ? trim($data["items"]) : "";
 $total = isset($data["total"]) ? trim($data["total"]) : "";
 
-// Vienkārša validācija – ja kaut kas būtisks trūkst, neatļaujam
+// Pamata pārbaude
 if ($items === "" || $total === "" || $name === "" || $phone === "" || $email === "") {
     http_response_code(400);
     echo "Missing fields";
     exit;
 }
 
-// Temats
+// E-pasta temats un saturs
 $subject = "Jauns pasūtījums — €" . $total;
 
-// Ziņas saturs
 $bodyLines = [
     "Jauns pasūtījums no sotins.eu",
     "",
@@ -42,21 +47,32 @@ $bodyLines = [
 
 $body = implode("\n", $bodyLines);
 
-// Headeri (no noreply@ jūsu domēna; šo adresi var mainīt uz reālu sūtītāja adresi)
-$headers   = [];
-$headers[] = "From: Sotins.eu <noreply@sotins.eu>";
-$headers[] = "Reply-To: " . $email;
-$headers[] = "Content-Type: text/plain; charset=UTF-8";
-$headersStr = implode("\r\n", $headers);
+$mail = new PHPMailer(true);
 
-// Sūtam e-pastu
-$ok = mail($to, $subject, $body, $headersStr);
+try {
+    // SMTP iestatījumi (Gmail)
+    $mail->isSMTP();
+    $mail->Host       = 'smtp.gmail.com';
+    $mail->SMTPAuth   = true;
+    $mail->Username   = 'supersotins@gmail.com';        // JŪSU GMAIL
+    $mail->Password   = 'ŠEIT_IELIEC_APP_PAROLI';       // 16-zīmju Google App Password (NEVIS parasto paroli)
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port       = 587;
 
-if ($ok) {
+    // No/Uz
+    $mail->setFrom('supersotins@gmail.com', 'Sotins.eu');
+    $mail->addAddress('supersotins@gmail.com');         // saņēmējs – jūs pats
+    $mail->addReplyTo($email, $name);                   // atbildes iet klientam
+
+    // Saturs
+    $mail->Subject = $subject;
+    $mail->Body    = $body;
+    $mail->CharSet = 'UTF-8';
+
+    $mail->send();
     http_response_code(200);
     echo "OK";
-} else {
+} catch (Exception $e) {
     http_response_code(500);
-    echo "ERROR";
+    echo "ERROR: " . $mail->ErrorInfo;
 }
-?>
