@@ -1,0 +1,6 @@
+order.php
+phpmailer/
+   PHPMailer.php
+   SMTP.php
+   Exception.php
+   README.txt (nav obligāts, tikai info)
