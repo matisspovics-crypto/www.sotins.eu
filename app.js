@@ -1,4 +1,4 @@
-// Sotins.eu cart + checkout logic (JS-ģenerēti produkti, PHP e-pasta backend)
+// Sotins.eu – grozs ar daudzuma izvēli un pasūtījumu uz PHP (order.php)
 
 // Konfigurācija
 const cfg = window.STORE_CONFIG || { PRICE: 0.99 };
@@ -27,6 +27,7 @@ const closeCheckoutBtn = document.getElementById("closeCheckout");
 const checkoutBtn      = document.getElementById("checkoutBtn");
 const orderForm        = document.getElementById("orderForm");
 const toast            = document.getElementById("toast");
+const clearCartBtn     = document.getElementById("clearCartBtn");
 
 // Vienkāršas show/hide funkcijas
 function show(el){
@@ -49,12 +50,20 @@ function showToast(msg){
   showToast._t = setTimeout(()=> hide(toast), 1800);
 }
 
-// Ģenerējam produktus produktu lapā
+// ***** PRODUKTU ĢENERĒŠANA AR DAUDZUMA POGĀM *****
+
 if(grid){
   grid.innerHTML = products.map(p => `
     <article class="card">
       <img src="${p.img}" alt="${p.name}" loading="lazy">
       <h3>${p.name}</h3>
+
+      <div class="qty-box">
+        <button class="qty-minus" data-id="${p.id}">−</button>
+        <span class="qty" data-id="${p.id}">1</span>
+        <button class="qty-plus" data-id="${p.id}">+</button>
+      </div>
+
       <div class="meta">
         <span class="price">€${p.price.toFixed(2)}</span>
         <button class="buy" data-id="${p.id}">Pirkt</button>
@@ -63,7 +72,8 @@ if(grid){
   `).join("");
 }
 
-// GROZS
+// ***** GROZS *****
+
 let cart = [];
 try{
   cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -104,23 +114,61 @@ function updateCartUI(){
 }
 updateCartUI();
 
-// Pievienot grozam
+// ***** DAUDZUMA LOĢIKA (qty + / -) *****
+
+// Karte ar daudzumiem
+const qtyMap = {};
+
+// Klausāmies klikšķus uz visiem produktiem
 if(grid){
   grid.addEventListener("click", e => {
-    const btn = e.target.closest(".buy");
-    if(!btn) return;
-    const id = Number(btn.dataset.id);
-    const product = products.find(p => p.id === id);
-    if(!product) return;
-    const existing = cart.find(i => i.id === id);
-    if(existing) existing.qty += 1;
-    else cart.push({ ...product, qty: 1 });
-    updateCartUI();
-    showToast(product.name + " pievienots grozam");
+    const plus = e.target.closest(".qty-plus");
+    const minus = e.target.closest(".qty-minus");
+    const buyBtn = e.target.closest(".buy");
+
+    // + poga
+    if(plus){
+      const id = plus.dataset.id;
+      const current = qtyMap[id] || 1;
+      const next = current + 1;
+      qtyMap[id] = next;
+      const span = grid.querySelector(`.qty[data-id="${id}"]`);
+      if(span) span.textContent = String(next);
+      return;
+    }
+
+    // - poga
+    if(minus){
+      const id = minus.dataset.id;
+      const current = qtyMap[id] || 1;
+      const next = Math.max(1, current - 1);
+      qtyMap[id] = next;
+      const span = grid.querySelector(`.qty[data-id="${id}"]`);
+      if(span) span.textContent = String(next);
+      return;
+    }
+
+    // PIRKT poga
+    if(buyBtn){
+      const id = Number(buyBtn.dataset.id);
+      const product = products.find(p => p.id === id);
+      if(!product) return;
+
+      const qty = qtyMap[id] || 1;
+
+      const existing = cart.find(i => i.id === id);
+      if(existing) existing.qty += qty;
+      else cart.push({ ...product, qty });
+
+      updateCartUI();
+      showToast(`${product.name} × ${qty} pievienots grozam`);
+      return;
+    }
   });
 }
 
-// Atvērt / aizvērt grozu
+// ***** GROZA MODĀLIS *****
+
 if(cartBtn){
   cartBtn.addEventListener("click", () => {
     show(overlay);
@@ -133,8 +181,6 @@ if(closeCartBtn){
     hide(overlay);
   });
 }
-
-// Klikšķis uz overlay aizver
 if(overlay){
   overlay.addEventListener("click", () => {
     hide(cartModal);
@@ -143,7 +189,18 @@ if(overlay){
   });
 }
 
-// Checkout atvēršana
+// Iztukšot grozu (ja ir poga ar id="clearCartBtn")
+function clearCart(){
+  cart = [];
+  updateCartUI();
+  showToast("Grozs iztukšots");
+}
+if(clearCartBtn){
+  clearCartBtn.addEventListener("click", clearCart);
+}
+
+// ***** CHECKOUT MODĀLIS + PASŪTĪJUMA NOSŪTĪŠANA *****
+
 if(checkoutBtn){
   checkoutBtn.addEventListener("click", () => {
     if(cart.length === 0){
@@ -162,17 +219,6 @@ if(closeCheckoutBtn){
   });
 }
 
-// Iztukšot grozu (ja HTML būs poga ar id="clearCartBtn")
-const clearCartBtn = document.getElementById("clearCartBtn");
-function clearCart(){
-  cart = [];
-  updateCartUI();
-  showToast("Grozs iztukšots");
-}
-if(clearCartBtn){
-  clearCartBtn.addEventListener("click", clearCart);
-}
-
 // Pasūtījuma nosūtīšana uz order.php
 if(orderForm){
   orderForm.addEventListener("submit", e => {
@@ -187,7 +233,7 @@ if(orderForm){
 
     const itemsText = cart.map(i =>
       `${i.name} x ${i.qty} = €${(i.price * i.qty).toFixed(2)}`
-    ).join("\\n");
+    ).join("\n");
 
     const total = cart.reduce((s,i)=>s + i.price * i.qty, 0).toFixed(2);
 
