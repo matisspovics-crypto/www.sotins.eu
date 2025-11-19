@@ -1,12 +1,12 @@
 <?php
-// Kam sūtīt pasūtījumu
-$to = "supersotins@gmail.com"; // <-- ŠEIT IR TAVS EPPASTS
+// Kam tiks nosūtīti VISI pasūtījumi
+$to = "supersotins@gmail.com"; // <- ŠEIT IR JŪSU E-PASTS
 
-// Nolasām JSON datus no fetch()
+// Nolasām JSON datus no fetch('order.php', ...)
 $raw = file_get_contents("php://input");
 $data = json_decode($raw, true);
 
-// Izvelkam laukus
+// Izvelkam laukus ar drošu noklusējumu
 $name  = isset($data["name"])  ? trim($data["name"])  : "";
 $phone = isset($data["phone"]) ? trim($data["phone"]) : "";
 $email = isset($data["email"]) ? trim($data["email"]) : "";
@@ -14,7 +14,7 @@ $notes = isset($data["notes"]) ? trim($data["notes"]) : "";
 $items = isset($data["items"]) ? trim($data["items"]) : "";
 $total = isset($data["total"]) ? trim($data["total"]) : "";
 
-// Vienkārša validācija – ja kaut kas trūkst, neatļaujam sūtīt
+// Vienkārša validācija – ja kaut kas būtisks trūkst, neatļaujam
 if ($items === "" || $total === "" || $name === "" || $phone === "" || $email === "") {
     http_response_code(400);
     echo "Missing fields";
@@ -26,8 +26,9 @@ $subject = "Jauns pasūtījums — €" . $total;
 
 // Ziņas saturs
 $bodyLines = [
-    "Jauns pasūtījums:",
+    "Jauns pasūtījums no sotins.eu",
     "",
+    "Preces:",
     $items,
     "",
     "Kopā: €" . $total,
@@ -41,7 +42,7 @@ $bodyLines = [
 
 $body = implode("\n", $bodyLines);
 
-// Headeri (no noreply@sotins.eu vai cita tava domēna adreses)
+// Headeri (no noreply@ jūsu domēna; šo adresi var mainīt uz reālu sūtītāja adresi)
 $headers   = [];
 $headers[] = "From: Sotins.eu <noreply@sotins.eu>";
 $headers[] = "Reply-To: " . $email;
