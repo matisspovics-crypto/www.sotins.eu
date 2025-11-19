@@ -1,16 +1,12 @@
 <?php
 // Kam sūtīt pasūtījumu
-$to = "matiss.povics@gmail.com"; // <-- Ja vajag, nomainiet uz savu e-pastu, piem. yourname@gmail.com
+$to = "supersotins@gmail.com"; // <-- ŠEIT IR TAVS EPPASTS
 
-// Debug log faila ceļš (tajā pašā mapē)
-$logFile = __DIR__ . "/order_debug_log.txt";
-
-// Nolasām JSON datus
+// Nolasām JSON datus no fetch()
 $raw = file_get_contents("php://input");
-file_put_contents($logFile, "---- " . date("Y-m-d H:i:s") . " RAW ----\n" . $raw . "\n", FILE_APPEND);
-
 $data = json_decode($raw, true);
 
+// Izvelkam laukus
 $name  = isset($data["name"])  ? trim($data["name"])  : "";
 $phone = isset($data["phone"]) ? trim($data["phone"]) : "";
 $email = isset($data["email"]) ? trim($data["email"]) : "";
@@ -18,9 +14,8 @@ $notes = isset($data["notes"]) ? trim($data["notes"]) : "";
 $items = isset($data["items"]) ? trim($data["items"]) : "";
 $total = isset($data["total"]) ? trim($data["total"]) : "";
 
-// Vienkārša validācija
+// Vienkārša validācija – ja kaut kas trūkst, neatļaujam sūtīt
 if ($items === "" || $total === "" || $name === "" || $phone === "" || $email === "") {
-    file_put_contents($logFile, "ERROR: Missing fields\n", FILE_APPEND);
     http_response_code(400);
     echo "Missing fields";
     exit;
@@ -46,21 +41,20 @@ $bodyLines = [
 
 $body = implode("\n", $bodyLines);
 
-// Headeri
+// Headeri (no noreply@sotins.eu vai cita tava domēna adreses)
 $headers   = [];
 $headers[] = "From: Sotins.eu <noreply@sotins.eu>";
 $headers[] = "Reply-To: " . $email;
 $headers[] = "Content-Type: text/plain; charset=UTF-8";
 $headersStr = implode("\r\n", $headers);
 
+// Sūtam e-pastu
 $ok = mail($to, $subject, $body, $headersStr);
 
 if ($ok) {
-    file_put_contents($logFile, "MAIL OK uz: $to\n", FILE_APPEND);
     http_response_code(200);
     echo "OK";
 } else {
-    file_put_contents($logFile, "MAIL ERROR uz: $to\n", FILE_APPEND);
     http_response_code(500);
     echo "ERROR";
 }
