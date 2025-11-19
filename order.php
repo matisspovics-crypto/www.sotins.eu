@@ -1,13 +1,7 @@
 <?php
-// ====== GMAIL SMTP PASŪTĪJUMI UZ supersotins@gmail.com ======
+// VIENKĀRŠĀ VERSIJA: pasūtījums -> supersotins@gmail.com izmantojot PHP mail()
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-// PHPMailer klases (tām jābūt mapē phpmailer/ blakus order.php)
-require __DIR__ . '/phpmailer/Exception.php';
-require __DIR__ . '/phpmailer/PHPMailer.php';
-require __DIR__ . '/phpmailer/SMTP.php';
+$to = "supersotins@gmail.com"; // UZ ŠO E-PASTU TIKS SŪTĪTI PASŪTĪJUMI
 
 // Nolasām JSON datus no fetch('order.php', ...)
 $raw  = file_get_contents("php://input");
@@ -47,32 +41,20 @@ $bodyLines = [
 
 $body = implode("\n", $bodyLines);
 
-$mail = new PHPMailer(true);
+$headers   = [];
+$headers[] = "From: Sotins.eu <noreply@sotins.eu>";
+$headers[] = "Reply-To: " . $email;
+$headers[] = "Content-Type: text/plain; charset=UTF-8";
+$headersStr = implode("\r\n", $headers);
 
-try {
-    // SMTP iestatījumi (Gmail)
-    $mail->isSMTP();
-    $mail->Host       = 'smtp.gmail.com';
-    $mail->SMTPAuth   = true;
-    $mail->Username   = 'supersotins@gmail.com';        // JŪSU GMAIL
-    $mail->Password   = '“jbrjyeoaifptedvs';       // 16-zīmju Google App Password (NEVIS parasto paroli)
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port       = 587;
+// Sūtam e-pastu
+$ok = mail($to, $subject, $body, $headersStr);
 
-    // No/Uz
-    $mail->setFrom('supersotins@gmail.com', 'Sotins.eu');
-    $mail->addAddress('supersotins@gmail.com');         // saņēmējs – jūs pats
-    $mail->addReplyTo($email, $name);                   // atbildes iet klientam
-
-    // Saturs
-    $mail->Subject = $subject;
-    $mail->Body    = $body;
-    $mail->CharSet = 'UTF-8';
-
-    $mail->send();
+if ($ok) {
     http_response_code(200);
     echo "OK";
-} catch (Exception $e) {
+} else {
     http_response_code(500);
-    echo "ERROR: " . $mail->ErrorInfo;
+    echo "ERROR";
 }
+?>

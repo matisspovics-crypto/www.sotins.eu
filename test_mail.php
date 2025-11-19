@@ -1,8 +1,9 @@
 <?php
-// Vienkāršs tests vai mail() strādā uz servera
-$to = "orders@sotins.eu"; // <-- nomainiet uz savu e-pastu testam, ja vajag
-$subject = "Testa epasts no sotins.eu";
-$body = "Šis ir testa epasts no test_mail.php skripta.";
+// Ļoti vienkāršs tests, vai uz servera strādā mail()
+
+$to = "supersotins@gmail.com"; // var mainīt uz citu testam
+$subject = "Testa epasts no test_mail.php";
+$body = "Šis ir testa epasts no sotins.eu servera (test_mail.php).";
 $headers = "From: Sotins.eu <noreply@sotins.eu>\r\nContent-Type: text/plain; charset=UTF-8";
 
 if (mail($to, $subject, $body, $headers)) {
