@@ -1,29 +1,23 @@
 // UPDATED APP.JS WITH AUTOMATIC EMAIL SENDING
-const cfg = window.STORE_CONFIG;
-const products = cfg.PRODUCTS.map((name,i)=>({
-  id:i+1,
-  name,
-  price:Number(cfg.PRICE),
-  img:`images/product_${i+1}.png`
-}));
+// Konfigurācija (epasts + cena)
+const cfg = window.STORE_CONFIG || { PRICE: 0.99 };
 
-let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+// PRODUKTU SARAKSTS (to pašu, ko redzi HTML)
+const products = [
+  { id: 1, name: "Ķirbīgā Cidonija",      price: Number(cfg.PRICE) },
+  { id: 2, name: "Laimīgais Skujiņš",     price: Number(cfg.PRICE) },
+  { id: 3, name: "Vitamīnu Bumba",        price: Number(cfg.PRICE) },
+  { id: 4, name: "Tropiskais lietus",     price: Number(cfg.PRICE) },
+  { id: 5, name: "Ziemassvētku šots",     price: Number(cfg.PRICE) },
+  { id: 6, name: "Šotiņš Tradicionālais", price: Number(cfg.PRICE) },
+  { id: 7, name: "Sporta Miķelis",        price: Number(cfg.PRICE) },
+  { id: 8, name: "Vairāk Saules",         price: Number(cfg.PRICE) },
+  { id: 9, name: "Gurķīgais Spēks",       price: Number(cfg.PRICE) },
+];
 
-function updateCartUI(){
-  const cartCount = document.getElementById('cartCount');
-  const cartList = document.getElementById('cartList');
-  const cartTotal = document.getElementById('cartTotal');
+// Atrodam produktu bloku, bet vairs NERAKSTĀM tajā iekšā HTML
+const grid = document.getElementById('products');
 
-  if(cartCount) cartCount.textContent = cart.reduce((a,i)=>a+i.qty,0);
-
-  if(cartList){
-    cartList.innerHTML = cart.map(item => `
-      <li class="cart-item">
-        <span>${item.name} × ${item.qty}</span>
-        <span>€${(item.price*item.qty).toFixed(2)}</span>
-      </li>
-    `).join('') || '<li class="cart-item"><em>Grozs ir tukšs</em></li>';
-  }
 
   if(cartTotal){
     const total = cart.reduce((a,i)=>a+i.price*i.qty,0);
